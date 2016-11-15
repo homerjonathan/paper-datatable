@@ -341,7 +341,8 @@ This element is used inside of `<paper-datatable>` to declare the columns to be 
 							value = '';
 						}
 					}
-
+					// Fix as null values caues this function to fail - homerjonathan
+					if (value == null) { value = ""; }
 					if(this.type.toLowerCase() == 'string'){
 						return value.toString();
 					}else if(this.type.toLowerCase() == 'number'){
