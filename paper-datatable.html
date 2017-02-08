@@ -231,6 +231,10 @@
 			.partialSelection[data-checked]{
 				transform: scale(1) rotate(0deg);
 			}
+			
+			tr.filtered{
+				display: none !important;
+			}
 		</style>
 		<!--<content select="paper-datatable-column"></content>-->
 		<paper-datatable-edit-dialog id="dialog"></paper-datatable-edit-dialog>
@@ -275,7 +279,7 @@
 						 duplication due to https://github.com/David-Mulder/paper-datatable/issues/3 ...
 						-->
 						<template is="dom-if" if="{{multiSelection}}">
-							<tr data-key$="{{rowKey}}" data-selected$="[[_isRowSelected(rowKey, selectedKeys.splices)]]" style$="{{_customRowStyle(rowKey)}}">
+							<tr data-key$="{{rowKey}}" data-selected$="[[_isRowSelected(rowKey, selectedKeys.splices)]]" class$="{{_isRowFiltered(rowKey}}" style$="{{_customRowStyle(rowKey)}}">
 								<template is="dom-if" if="{{selectable}}">
 									<td on-tap="_cellTapped">
 										<!-- a somewhat specific 'hack' for <paper-datatable-card> :/ -->
@@ -295,7 +299,7 @@
 							</tr>
 						</template>
 						<template is="dom-if" if="{{!multiSelection}}">
-							<tr data-key$="{{rowKey}}" data-selected$="[[_isRowSelected(rowKey, selectedKey)]]" style$="{{_customRowStyle(rowKey)}}">
+							<tr data-key$="{{rowKey}}" data-selected$="[[_isRowSelected(rowKey, selectedKey)]]" class$="{{_isRowFiltered(rowKey}}" style$="{{_customRowStyle(rowKey)}}">
 								<template is="dom-if" if="{{selectable}}">
 									<td on-tap="_cellTapped">
 										<paper-checkbox checked="[[_isRowSelected(rowKey, selectedKey)]]" on-change="_setSelection"></paper-checkbox>
@@ -783,7 +787,9 @@ A [material design implementation of a data table](https://www.google.com/design
 						return this.selectedKey == key;
 					}
 				},
-
+				_isRowFiltered: function(key) {
+					
+				},
 				_setSelection: function(ev){
 					var key = ev.model.rowKey;
 					if(ev.target.checked){
