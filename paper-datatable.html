@@ -328,7 +328,7 @@
 	 @demo demo/simple.html Simple clear example
 	 @demo demo/paper-datatable.html Complex playground
 	 */
-	class PaperDatatable extends Polymer.Element {
+	class PaperDatatable extends Polymer.mixinBehaviors([Polymer.IronResizableBehavior],Polymer.Element) {
 			static get is() { return 'paper-datatable'; }
 			static get properties() {
 				return {
@@ -484,9 +484,6 @@
 					]
 				}
 
-//				behaviors: [
-//					Polymer.IronResizableBehavior
-//				],
 			connectedCallback() {
 				super.connectedCallback();
 				this.set('_columns', []);
@@ -985,9 +982,9 @@
 				return this.get(['data', key]);
 			}
 
-			_getSelectedItems: function(){
+			_getSelectedItems(){
 				return this._getByKey(this.selectedKeys);
-			},
+			}
 
 			_getIndexById(id){
 				return console.warn('This function has been deprecated and removed.');
@@ -1017,7 +1014,7 @@
 				this.linkPaths('selectedItem', 'data.'+selectedKey);
 			}
 
-			_linkSelectedItems: function(){
+			_linkSelectedItems(){
 				var selectedItemsCollection = Polymer.Collection.get(this.selectedItems);
 				selectedItemsCollection.getKeys().forEach(function(selectedItemKey, i){
 					this.linkPaths('selectedItems.'+selectedItemKey, 'data.'+this.selectedKeys[i]);
@@ -1109,4 +1106,3 @@
 		}
 	customElements.define(PaperDatatable.is, PaperDatatable);
 </script>
-
